@@ -7,14 +7,14 @@
         "type": "git",
         "url": "https://github.com/ralph2399/ophis-brackets-syntax-highlighter"
     },
-    "keywords": {
+    "keywords": [
         "6502",
         "ophis",
         "assembly",
         "language",
         "syntax",
         "highlighting"
-    },
+    ],
     "author": "Ralph99",
     "license": "MIT",
     "bugs": 
