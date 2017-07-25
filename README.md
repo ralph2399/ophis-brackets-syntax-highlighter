@@ -13,4 +13,4 @@ If Ophis 6502 is not set automatically as default language for .oph files, click
 
 ### Issues
 Currently the syntax highlighter is not working properly.
-Once I get it to work, i will update this repository.
+Once I get it to work, I will update this repository.
