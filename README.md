@@ -12,3 +12,9 @@ The extension can be installed by simply dragging the .zip file onto the extensi
 
 ## Notes
 If Ophis 6502 is not set automatically as default language for .oph files, click on the current language at bottom right of Brackets window and select Ophis 6502 Assembler in the dropdown menu.
+
+***
+
+### Issues
+Currently the syntax highlighter is not working properly.
+Once I get it to work, i will update this repository.
