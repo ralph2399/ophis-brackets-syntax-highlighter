@@ -1,28 +1,26 @@
 {
-    "name": "ophis",
+    "name": "ophis-brackets-syntax-highlighter",
     "title": "Ophis 6502 Assembler Syntax Highlighter",
-    "version": "0.0.1",
-    "description": "Syntax highlighting support for Ophis 6502 assembly files (.oph)",
+    "description": "Brings support for Ophis 6502 from CodeMirror to Brackets.",
+    "homepage": "https://github.com/ralph2399/ophis-brackets-syntax-highlighter",
+    "version": "1.0.0",
+    "author": "Ralph99",
     "repository": {
         "type": "git",
         "url": "https://github.com/ralph2399/ophis-brackets-syntax-highlighter"
     },
     "keywords": [
+        "assembly",
+        "assembler",
+        "asm",
         "6502",
         "ophis",
-        "assembly",
         "language",
-        "syntax",
-        "highlighting"
+        "syntax"        
     ],
-    "author": "Ralph99",
     "license": "MIT",
-    "bugs": 
-    {
-        "url": "https://github.com/ralph2399/ophis-brackets-syntax-highlighter/issues"
-    },
-    "homepage": "https://github.com/ralph2399/ophis-brackets-syntax-highlighter",
+    "categories": "language",
     "engines": {
-        "brackets": ">=1.10.0"
+        "brackets": ">=0.40.0"
     }
 }
