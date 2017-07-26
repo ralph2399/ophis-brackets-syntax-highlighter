@@ -1,88 +1,72 @@
-define(function (require, exports, module) {
+define(function (require, exports, module) {    
     "use strict";
     var LanguageManager = brackets.getModule("language/LanguageManager");
     
     LanguageManager.defineLanguage("ophis", {
         name: "Ophis 6502 Assembler",
-        mode: "6502",
+        mode: "ophis",
         fileExtensions: ["oph"],
         lineComment: [";"]
     });
 });
 
-CodeMirror.defineMode('6502', function() {
-    function words(str) {
-        var obj = {}, words = str.split(" ");
-        for (var i = 0; i < words.length; i++) obj[words[i]] = true;
-        return obj;
-    }
+CodeMirror.defineMode('ophis', function() {
+    var opcodes = /\b(a(dc|nd|sl)|b(cc|cs|eq|it|mi|ne|pl|rk|vc|vs)|c(lc|ld|li|lv|mp|px|py)|d(ec|ex|ey)|eor|i(nc|nx|ny)|j(mp|sr)|l(da|dx|dy|sr)|nop|ora|p(ha|hp|la|lp)|r(ol|or|ti|ts)|s(bc|ec|ed|ei|ta|tx|ty)|t(ax|ay|sx|xa|xs|ya))\b/i;
     
-    var directives = words(".outfile .advance .alias .byte .cbmfloat .checkpc .data .incbin .include .org .require .space .text .word .dword .wordbe .dwordbe .scope .scend .macro .macend .invoke");
+    var undocumented = /\b(a(sr|rr|ne)|s(lo|re|ax|bx|ha|hs|hy|hx)|r(la|ra)|l(ax|xa|as))\b/i;
     
-    var opcodes = words("adc and asl bcc bcs beq bit bmi bne bpl brk bvc bvs clc cld cli clv cmp cpx cpy dec dex dey eor inc inx iny jmp jsr lda ldx ldy lsr nop ora pha php pla plp rol ror rti rts sbc sec sed sei sta stx sty tax tay tsx txa txs tya");
+    var directives = /\.(a(dvance|lias)|byte|c(bmfloat|heckpc|harmap)|d(ata|word|wordbe)|i(ncbin|nclude|nvoke)|m(acro|acend)|o(rg|utfile)|require|s(pace|cope|cend)|text|w(ord|ordbe))\b/i;
     
-    var undocumented = words("slo rla sre rra sax lax dcp isb anc asr arr ane lxa sbx sha shs las shy shx");
-    
-    var registers = words("a x y");
+    var numbers = /\b($+[\da-f]|0+[0-7]|%+[0-1]|\d)\b/i;
     
     return {
         startState: function() {
-            return {
-                tokenize: null
-            };
+            return {context: 0};
         },
         token: function(stream, state) {
-            if (state.tokenize) {
-                return state.tokenize(stream,state);
-            }
-            var cur, ch = stream.next();
             
-            // Comment
-            if (ch === ';') {
+            if (stream.eatSpace()) {
+                return null;
+            }
+            
+            var item;
+            
+            if (stream.eatWhile(/\w/)) {
+                item = stream.current();
+                
+                if (numbers.test(item)) {
+                    return 'number';
+                }
+                else if (opcodes.test(item)) {
+                    return 'opcode';
+                }
+                else if (undocumented.test(item)) {
+                    return 'unof_opcode';
+                }
+            }
+            else if (stream.eat(';')) {
                 stream.skipToEnd();
-                return "comment";
+                return 'comment';
             }
-            
-            // String
-            if (ch === '"') {
-                strem.eatWhile(/\w/);
-                return "string";
-            }
-            
-            // Numbers
-            if (/\d/.test(ch)) {
-                if (ch === "$") {
-                    stream.eatWhile(/[0-9a-fA-F]/);
-                    return "number";
+            else if (stream.eat('"')) {
+                while (item = stream.next()) {
+                    if (item == '"') {
+                        break;
+                    }
                 }
-                if (ch === "%") {
-                    stream.eatWhile(/[0-1]/);
-                    return "number";
+                return 'string';
+            }
+            else if (stream.eat('.')) {
+                if (stream.eatWhile(/\w/)) {
+                    item = stream.current();
+                    if (directives.test(item)) {
+                        return 'directive';
+                    }
+                    return null;
                 }
-                if (ch === "0") {
-                    stream.eatWhile(/[0-7]/);
-                    return "number";
-                }
-                stream.eatWhile(/\d/);
-                return "number";
             }
-            
-            // Opcodes
-            if (opcodes.propertyIsEnumerable(cur) || undocumented.propertyIsEnumerable(cur)) {
-                stream.eatWhile(/\w/);
-                return "keyword";
-            }
-            
-            // Directives
-            if (directives.propertyIsEnumerable(cur)) {
-                stream.eatWhile(/\w/);
-                return "tag";
-            }
-            
-            // Registers
-            if (registers.propertyIsEnumerable(cur)) {
-                stream.eatWhile(/\w/);
-                return "builtin";
+            else {
+                stream.next();
             }
             return null;
         }

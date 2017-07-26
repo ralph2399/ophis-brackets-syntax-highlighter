@@ -1,5 +1,5 @@
 {
-    "name": "6502",
+    "name": "ophis",
     "title": "Ophis 6502 Assembler Syntax Highlighter",
     "version": "0.0.1",
     "description": "Syntax highlighting support for Ophis 6502 assembly files (.oph)",
@@ -23,6 +23,6 @@
     },
     "homepage": "https://github.com/ralph2399/ophis-brackets-syntax-highlighter",
     "engines": {
-        "brackets": ">=0.24.0"
+        "brackets": ">=1.10.0"
     }
 }
