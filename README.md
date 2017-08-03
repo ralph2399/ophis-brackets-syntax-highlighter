@@ -6,7 +6,9 @@ Syntax highlighter for the Ophis 6502 Assembler by Michael Martin, made specific
 ***
 
 ### Install
-The extension can be installed by simply dragging the .zip file onto the extension manager.
+The extension can be installed by either:
+1. Dragging the .zip file onto the extension manager.
+2. Installing via the extension manager by inserting the url of this github repository.
 
 ### Notes
 If Ophis 6502 is not set automatically as default language for .oph files, click on the current language at bottom right of Brackets window and select Ophis 6502 Assembler in the dropdown menu.
