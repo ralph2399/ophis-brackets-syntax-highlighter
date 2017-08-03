@@ -1,11 +1,6 @@
 define(function (require, exports, module) {
-    var LangaugeManager = brackets.getModule("language/LanguageManager");
-    LanguageManager.defineLanguage("ophis", {
-        name: "Ophis Assembler",
-        mode: "ophis",
-        fileExtensions: ["oph"]
-    });
     "use strict";
+    
     CodeMirror.defineMode("ophis", function() {
         function getWords(str) {
             var obj = {}, words = str.split(" ");
@@ -91,5 +86,12 @@ define(function (require, exports, module) {
             },
             lineComment: lineCommentSymbol
         };
+    });
+   
+    var LangaugeManager = brackets.getModule("language/LanguageManager");
+    LanguageManager.defineLanguage("ophis", {
+        name: "Ophis Assembler",
+        mode: "ophis",
+        fileExtensions: ["oph"]
     });
 });
