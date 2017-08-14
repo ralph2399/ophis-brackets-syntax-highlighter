@@ -1,7 +1,7 @@
 {
     "name": "ophis-brackets-syntax-highlighter",
-    "title": "Ophis 6502/65C02 Assembler Syntax Highlighter",
-    "description": "Brings support for the Ophis Assembler from CodeMirror to Brackets.",
+    "title": "Ophis Assembler Syntax Highlighter",
+    "description": "Syntax highlighter for the Ophis Assembler.",
     "homepage": "https://github.com/ralph2399/ophis-brackets-syntax-highlighter",
     "version": "1.0.0",
     "author": "Ralph99",
